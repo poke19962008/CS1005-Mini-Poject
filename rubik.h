@@ -1,4 +1,7 @@
 #include <iostream>
+#include <map>
+#include <string>
+#include <array>
 using namespace std;
 
 // flu refers to the front face (because f is first) of the cubie that
@@ -38,37 +41,53 @@ const int ybo = 22, drb = 22;
 const int boy = 23, rbd = 23;
 
 // Front face rotated clockwise.
-int F[] = {fdl, dlf, lfd, flu, luf, ufl, frd, rdf, dfr, fur, urf, rfu, 
+array<int, 24> F = {fdl, dlf, lfd, flu, luf, ufl, frd, rdf, dfr, fur, urf, rfu, 
      	   bul, ulb, lbu, bru, rub, ubr, bld, ldb, dbl, bdr, drb, rbd};
 // Front face rotated anticlockwise.
-int Fi[24];
+array<int, 24> Fi;
 
 // Lower face rotated clockwise.
-int L[] = {ulb, lbu, bul, fur, urf, rfu, ufl, flu, luf, frd, rdf, dfr,
+array<int, 24> L = {ulb, lbu, bul, fur, urf, rfu, ufl, flu, luf, frd, rdf, dfr,
      	   dbl, bld, ldb, bru, rub, ubr, dlf, lfd, fdl, bdr, drb, rbd};
 // Lower face rotated anticlockwise.
-int Li[24];
+array<int, 24> Li;
 
 // Upper face rotated clockwise.
-int U[] = {rfu, fur, urf, rub, ubr, bru, fdl, dlf, lfd, frd, rdf, dfr,
+array<int, 24> U = {rfu, fur, urf, rub, ubr, bru, fdl, dlf, lfd, frd, rdf, dfr,
            luf, ufl, flu, lbu, bul, ulb, bld, ldb, dbl, bdr, drb, rbd};
 // Upper face rotated anticlockwise.
-int Ui[24];
+array<int, 24> Ui;
 
 // Identity: equal to (0, 1, 2, ..., 23).
+// Final destination position
 int I[] = {flu, luf, ufl, fur, urf, rfu, fdl, dlf, lfd, frd, rdf, dfr,     bul, ulb, lbu, bru, rub, ubr, bld, ldb, dbl, bdr, drb, rbd};
+
+map <string, array<int, 24> > quarter_twist;
 
 class rubik {
 public:
 	rubik(){
 		perm_inverse(F, Fi);
 		perm_inverse(L, Li);
-		perm_inverse(U, Ui);	
+		perm_inverse(U, Ui);
+
+		quarter_twist["F"] = F;
+		quarter_twist["Fi"] = Fi;
+
+		quarter_twist["L"] = L;
+		quarter_twist["Li"] = Li;
+
+		quarter_twist["U"] = U;
+		quarter_twist["Ui"] = Ui;	
 	}
 
-	void perm_inverse(int X[], int Xi[]){
-		for(int i=0;i<24;i++)
-			Xi[X[i]] = i;
+	void perm_inverse(array<int, 24>& X, array<int, 24>& Xi){
+		for(int i=0;i<24;i++) Xi[X[i]] = i;
+	}
+
+	void perm_apply(char* move, int postion[]){
+		array<int, 24> perm = quarter_twist[move];
+		
 	}
 };
 
