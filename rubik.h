@@ -67,9 +67,9 @@ map <string, array<int, 24> > quarter_twist;
 class rubik {
 public:
 	rubik(){
-		perm_inverse(F, Fi);
-		perm_inverse(L, Li);
-		perm_inverse(U, Ui);
+		Fi = perm_inverse(F);
+		Li = perm_inverse(L);
+		Ui = perm_inverse(U);
 
 		quarter_twist["F"] = F;
 		quarter_twist["Fi"] = Fi;
@@ -81,14 +81,16 @@ public:
 		quarter_twist["Ui"] = Ui;	
 	}
 
-	void perm_inverse(array<int, 24>& X, array<int, 24>& Xi){
+	array<int, 24> perm_inverse(array<int, 24>& X){
+		array<int, 24> Xi;
 		for(int i=0;i<24;i++) Xi[X[i]] = i;
+		return Xi; 
 	}
 
 	array<int, 24> perm_apply(string move, array<int, 24> postion){
 		array<int, 24> perm = quarter_twist[move];
 		array<int, 24> newPosition;
-		
+
 		for(int i=0;i<24;i++) newPosition[i] = postion[perm[i]];
 		return newPosition;
 	}
