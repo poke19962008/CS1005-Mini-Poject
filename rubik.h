@@ -42,25 +42,25 @@ const int boy = 23, rbd = 23;
 
 // Front face rotated clockwise.
 array<int, 24> F = {fdl, dlf, lfd, flu, luf, ufl, frd, rdf, dfr, fur, urf, rfu, 
-     	   bul, ulb, lbu, bru, rub, ubr, bld, ldb, dbl, bdr, drb, rbd};
+     	            bul, ulb, lbu, bru, rub, ubr, bld, ldb, dbl, bdr, drb, rbd};
 // Front face rotated anticlockwise.
 array<int, 24> Fi;
 
 // Lower face rotated clockwise.
 array<int, 24> L = {ulb, lbu, bul, fur, urf, rfu, ufl, flu, luf, frd, rdf, dfr,
-     	   dbl, bld, ldb, bru, rub, ubr, dlf, lfd, fdl, bdr, drb, rbd};
+     	            dbl, bld, ldb, bru, rub, ubr, dlf, lfd, fdl, bdr, drb, rbd};
 // Lower face rotated anticlockwise.
 array<int, 24> Li;
 
 // Upper face rotated clockwise.
 array<int, 24> U = {rfu, fur, urf, rub, ubr, bru, fdl, dlf, lfd, frd, rdf, dfr,
-           luf, ufl, flu, lbu, bul, ulb, bld, ldb, dbl, bdr, drb, rbd};
+                    luf, ufl, flu, lbu, bul, ulb, bld, ldb, dbl, bdr, drb, rbd};
 // Upper face rotated anticlockwise.
 array<int, 24> Ui;
 
 // Identity: equal to (0, 1, 2, ..., 23).
 // Final destination position
-int I[] = {flu, luf, ufl, fur, urf, rfu, fdl, dlf, lfd, frd, rdf, dfr,     bul, ulb, lbu, bru, rub, ubr, bld, ldb, dbl, bdr, drb, rbd};
+array<int, 24> I = {flu, luf, ufl, fur, urf, rfu, fdl, dlf, lfd, frd, rdf, dfr,     bul, ulb, lbu, bru, rub, ubr, bld, ldb, dbl, bdr, drb, rbd};
 
 map <string, array<int, 24> > quarter_twist;
 
@@ -85,9 +85,14 @@ public:
 		for(int i=0;i<24;i++) Xi[X[i]] = i;
 	}
 
-	void perm_apply(char* move, int postion[]){
+	array<int, 24> perm_apply(string move, array<int, 24> postion){
 		array<int, 24> perm = quarter_twist[move];
-		
+		array<int, 24> newPosition;
+
+		for(int i=0;i<24;i++){
+			newPosition[i] = postion[perm[i]];
+		}
+		return newPosition;
 	}
 };
 
