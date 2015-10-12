@@ -88,10 +88,8 @@ public:
 	array<int, 24> perm_apply(string move, array<int, 24> postion){
 		array<int, 24> perm = quarter_twist[move];
 		array<int, 24> newPosition;
-
-		for(int i=0;i<24;i++){
-			newPosition[i] = postion[perm[i]];
-		}
+		
+		for(int i=0;i<24;i++) newPosition[i] = postion[perm[i]];
 		return newPosition;
 	}
 };
