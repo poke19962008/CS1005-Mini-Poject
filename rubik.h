@@ -62,6 +62,7 @@ array<int, 24> Ui;
 // Final destination position
 array<int, 24> I = {flu, luf, ufl, fur, urf, rfu, fdl, dlf, lfd, frd, rdf, dfr,     bul, ulb, lbu, bru, rub, ubr, bld, ldb, dbl, bdr, drb, rbd};
 
+// Key-Value -> 'F'|'Fi'|'L'|'Li'|'U'|'Ui' : F|Fi|L|Li|U|Ui
 map <string, array<int, 24> > quarter_twist;
 
 class rubik {
