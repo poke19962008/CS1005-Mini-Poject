@@ -65,29 +65,34 @@ array<int, 24> I = {flu, luf, ufl, fur, urf, rfu, fdl, dlf, lfd, frd, rdf, dfr, 
 // Key-Value -> 'F'|'Fi'|'L'|'Li'|'U'|'Ui' : F|Fi|L|Li|U|Ui
 map <string, array<int, 24> > quarter_twist;
 
+
 class rubik {
 public:
 	rubik(){
+		// Set all the anticlockwise move
 		Fi = perm_inverse(F);
 		Li = perm_inverse(L);
 		Ui = perm_inverse(U);
 
+		// Map all quater moves
 		quarter_twist["F"] = F;
 		quarter_twist["Fi"] = Fi;
-
 		quarter_twist["L"] = L;
 		quarter_twist["Li"] = Li;
-
 		quarter_twist["U"] = U;
 		quarter_twist["Ui"] = Ui;	
+
+		
 	}
 
+	// Inverse permuatation for all anticlockwise moves
 	array<int, 24> perm_inverse(array<int, 24>& X){
 		array<int, 24> Xi;
 		for(int i=0;i<24;i++) Xi[X[i]] = i;
 		return Xi; 
 	}
 
+	// Apply permutaion on the current position
 	array<int, 24> perm_apply(string move, array<int, 24> postion){
 		array<int, 24> perm = quarter_twist[move];
 		array<int, 24> newPosition;
@@ -95,5 +100,7 @@ public:
 		for(int i=0;i<24;i++) newPosition[i] = postion[perm[i]];
 		return newPosition;
 	}
+
+	
 };
 
