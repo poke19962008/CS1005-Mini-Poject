@@ -14,12 +14,12 @@ int main(){
 	for(int i=0;i<24;i++) cout<<newPosition[i]<<" ";
 	cout<<endl;
 
-	//Testing get_move and get_move_name
+	//Testing: get_move and get_move_name
 	array<int, 24> L_move = obj.get_move("L");
 	cout<<"Left Move: ";
 	for (int i = 0; i < 24; ++i) cout<<L_move[i];
 	cout<<endl;
 	cout<<"Left Move Name: "<<obj.get_move_name(L_move)<<endl;
-	
+
 	return 0;
 }

@@ -94,7 +94,7 @@ public:
 	}
 
 	// Inverse permuatation for all anticlockwise moves
-	array<int, 24> perm_inverse(array<int, 24>& X){
+	array<int, 24> perm_inverse(array<int, 24> X){
 		array<int, 24> Xi;
 		for(int i=0;i<24;i++) Xi[X[i]] = i;
 		return Xi; 
