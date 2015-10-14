@@ -65,6 +65,8 @@ array<int, 24> I = {flu, luf, ufl, fur, urf, rfu, fdl, dlf, lfd, frd, rdf, dfr, 
 // Key-Value -> 'F'|'Fi'|'L'|'Li'|'U'|'Ui' : F|Fi|L|Li|U|Ui
 map <string, array<int, 24> > quarter_twist;
 
+// Key-Value -> F|Fi|L|Li|U|Ui : 'F'|'Fi'|'L'|'Li'|'U'|'Ui'
+map <array<int, 24>, string > quarter_twist_name;
 
 class rubik {
 public:
@@ -82,7 +84,13 @@ public:
 		quarter_twist["U"] = U;
 		quarter_twist["Ui"] = Ui;	
 
-		
+		// Inverse mapping of quater move
+		quarter_twist_name[F] = "F";
+		quarter_twist_name[Fi] = "Fi";
+		quarter_twist_name[L] = "L";
+		quarter_twist_name[Li] = "Li";
+		quarter_twist_name[U] = "U";
+		quarter_twist_name[Ui] = "Ui";
 	}
 
 	// Inverse permuatation for all anticlockwise moves
