@@ -76,7 +76,7 @@ public:
 		Li = perm_inverse(L);
 		Ui = perm_inverse(U);
 
-		// Map all quater moves
+		// Map all quarter moves
 		quarter_twist["F"] = F;
 		quarter_twist["Fi"] = Fi;
 		quarter_twist["L"] = L;
@@ -84,7 +84,7 @@ public:
 		quarter_twist["U"] = U;
 		quarter_twist["Ui"] = Ui;	
 
-		// Inverse mapping of quater move
+		// Inverse mapping of quarter move
 		quarter_twist_name[F] = "F";
 		quarter_twist_name[Fi] = "Fi";
 		quarter_twist_name[L] = "L";
@@ -109,6 +109,15 @@ public:
 		return newPosition;
 	}
 
+	// Return move array by move name
+	array<int, 24> get_move(string move){
+		return quarter_twist[move];
+	}
+
+	// Return move name by move array
+	string get_move_name(array<int, 24> perm){
+		return quarter_twist_name[perm];
+	}
 	
 };
 
