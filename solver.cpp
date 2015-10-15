@@ -3,13 +3,13 @@
 #include <vector>
 #include <string>
 #include "rubik.h"
-
 using namespace std;
 
-vector<string> shortest_path(){
-
+// 2 Way BFS Algorithm
+vector<string> shortest_path(array<int, 24> init, array<int, 24> fin){
+	// Return list of moves to solve from init to fin
+	// Ex. <"F", "Li", "U", "Li" ....... >
 }
-
 
 int main(){
 	rubik obj;
