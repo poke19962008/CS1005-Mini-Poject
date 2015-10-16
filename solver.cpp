@@ -16,7 +16,7 @@ void shortest_path(array<int, 24> ini, array<int, 24> fin){
 	map<array<int, 24>, int> level;
 	level[ini] = 0;
 
-	map<array<int, 24>, array<int, 24>> parent;
+	map<array<int, 24>, map<string, array<int, 24>> > parent;
 	parent[ini] = {};
 
 	vector< array<int, 24> > frontier = {ini};
@@ -27,15 +27,18 @@ void shortest_path(array<int, 24> ini, array<int, 24> fin){
 		for (int i = 0; i < frontier.size() && !found; ++i){
 			vector<string> moves = {"F", "Fi", "L", "Li", "U", "Ui"};
 
-			for (int j = 0; j < moves.size() && !found; ++j){
+			for (int j = 0; j < moves.size(); ++j){
 				array<int, 24> next_move = obj.perm_apply(moves[j], frontier[i]);
 
-				if(next_move == fin)
+				if(next_move == fin){
 					found = true;
+					parent[next_move][moves[j]] = frontier[i];
+					break;
+				}
 
 				if(level.find(next_move) == level.end()){
 					level[next_move] = L;
-					parent[next_move] = frontier[i];
+					parent[next_move][moves[j]] = frontier[i];
 					next.push_back(next_move);
 				}
 			}
@@ -43,6 +46,18 @@ void shortest_path(array<int, 24> ini, array<int, 24> fin){
 		cout<<"L="<<L<<"	frontier="<<frontier.size()<<endl;
 		frontier = next;
 		L++;
+	}
+
+	if(found){
+		// vector<string> solution;
+		// array<int, 24> tmp = {fin};
+
+		// for (int i = 0; i < count; ++i){
+		// 	tmp = parent[tmp];
+
+		// }
+	}else{
+		cout<<"Sorry you have entered wrong combination...";
 	}
 
 	// Return list of moves to solve from init to fin
