@@ -1,3 +1,7 @@
+/***
+** AUTHOR: poke19962008
+*/
+
 #include <iostream>
 #include <array>
 #include <vector>
@@ -6,10 +10,13 @@
 #include "rubik.h"
 using namespace std;
 
-// 2 Way BFS Algorithm 
+rubik rubiks;
+
+// TODO: 2 Way BFS Algorithm 
 // TODO: change return type to vector<string>
-void shortest_path(array<int, 24> ini, array<int, 24> fin){
-	rubik obj;
+// 1 Way BFS Algorithm
+vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin){
+	rubik rubiks;
 	int L=1;
 	bool found = false;
 
@@ -23,7 +30,7 @@ void shortest_path(array<int, 24> ini, array<int, 24> fin){
 
 	map<array<int, 24>, parent_node > parent;
 	parent[ini].pos = {};
-	parent[ini].move = "";
+	parent[ini].move = "NULL";
 
 	vector< array<int, 24> > frontier = {ini};
 	
@@ -34,11 +41,10 @@ void shortest_path(array<int, 24> ini, array<int, 24> fin){
 			vector<string> moves = {"F", "Fi", "L", "Li", "U", "Ui"};
 
 			for (int j = 0; j < moves.size(); ++j){
-				array<int, 24> next_move = obj.perm_apply(moves[j], frontier[i]);
+				array<int, 24> next_move = rubiks.perm_apply(moves[j], frontier[i]);
 
 				if(next_move == fin){
 					found = true;
-					// parent[next_move][moves[j]] = frontier[i];
 					parent[next_move].pos = frontier[i];
 					parent[next_move].move = moves[j];
 					break;
@@ -46,44 +52,43 @@ void shortest_path(array<int, 24> ini, array<int, 24> fin){
 
 				if(level.find(next_move) == level.end()){
 					level[next_move] = L;
-					// parent[next_move][moves[j]] = frontier[i];
 					parent[next_move].pos = frontier[i];
 					parent[next_move].move = moves[j];
 					next.push_back(next_move);
 				}
 			}
 		}
-		cout<<"L="<<L<<"	frontier="<<frontier.size()<<endl;
+		// For Debuging
+		// cout<<"L="<<L<<"	frontier="<<frontier.size()<<endl;
 		frontier = next;
 		L++;
 	}
 
+	vector<string> solution = {};
 	if(found){
-		// vector<string> solution;
-		// array<int, 24> tmp = {fin};
+		parent_node tmp = parent[fin];
 
-		// while (true){
-		// 	if(tmp[] == {}) break;
+		while (true){
+			if(tmp.move == "NULL") break;
+			solution.insert(solution.begin(), tmp.move);
+			tmp = parent[tmp.pos];
+		}
 
-		// 	tmp = parent[tmp][];
-
-		// }
 	}else{
 		cout<<"Sorry you have entered wrong combination...";
-	}
+	}	
 
-	// Return list of moves to solve from init to fin
-	// Ex. <"F", "Li", "U", "Li" ....... >
+	return solution;
 }
 
 int main(){
-	rubik obj;
-
 	// array<int, 24> ini = {6, 7, 8, 20, 18, 19, 3, 4, 5, 16, 17, 15, 0, 1, 2, 14, 12, 13, 10, 11, 9, 21, 22, 23};
-	array<int, 24> fin = obj.get_final_position();
-	array<int, 24> ini = obj.perm_apply("F", obj.get_final_position());
+	array<int, 24> fin = rubiks.get_final_position();
+	array<int, 24> ini = rubiks.perm_apply("F", rubiks.get_final_position());
+	ini = rubiks.perm_apply("L", ini);
 
-	shortest_path(ini, fin);
+	
+	vector<string> solution = shortest_path(ini, fin);
 
 	return 0;
 }
