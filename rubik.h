@@ -76,7 +76,7 @@ private:
 		for(int i=0;i<24;i++) Xi[X[i]] = i;
 		return Xi; 
 	}
-	
+
 public:
 	rubik(){
 		// Set all the anticlockwise move
@@ -118,6 +118,10 @@ public:
 	// Return move name by move array
 	string get_move_name(array<int, 24> perm){
 		return quarter_twist_name[perm];
+	}
+
+	array<int, 24> get_final_position(){
+		return I;
 	}
 	
 };
