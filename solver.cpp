@@ -5,8 +5,9 @@
 #include "rubik.h"
 using namespace std;
 
-// 2 Way BFS Algorithm
-vector<string> shortest_path(array<int, 24> init, array<int, 24> fin){
+// 2 Way BFS Algorithm 
+// TODO: change return type to vector<string>
+void shortest_path(array<int, 24> init, array<int, 24> fin){
 	// Return list of moves to solve from init to fin
 	// Ex. <"F", "Li", "U", "Li" ....... >
 }
@@ -20,8 +21,9 @@ int main(){
 
 	for(int i=0;i<24;i++) cout<<newPosition[i]<<" ";
 	cout<<endl;
-
 	
-
+	// Testing public member function
+	cout<<obj.get_move_name(obj.get_move("Fi"));
+	
 	return 0;
 }

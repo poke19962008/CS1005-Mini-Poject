@@ -69,6 +69,14 @@ map <string, array<int, 24> > quarter_twist;
 map <array<int, 24>, string > quarter_twist_name;
 
 class rubik {
+private:
+	// Inverse permuatation for all anticlockwise moves
+	array<int, 24> perm_inverse(array<int, 24> X){
+		array<int, 24> Xi;
+		for(int i=0;i<24;i++) Xi[X[i]] = i;
+		return Xi; 
+	}
+	
 public:
 	rubik(){
 		// Set all the anticlockwise move
@@ -91,13 +99,6 @@ public:
 		quarter_twist_name[Li] = "Li";
 		quarter_twist_name[U] = "U";
 		quarter_twist_name[Ui] = "Ui";
-	}
-
-	// Inverse permuatation for all anticlockwise moves
-	array<int, 24> perm_inverse(array<int, 24> X){
-		array<int, 24> Xi;
-		for(int i=0;i<24;i++) Xi[X[i]] = i;
-		return Xi; 
 	}
 
 	// Apply permutaion on the current position
