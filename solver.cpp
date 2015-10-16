@@ -15,7 +15,7 @@ rubik rubiks;
 // TODO: 2 Way BFS Algorithm 
 // TODO: change return type to vector<string>
 // 1 Way BFS Algorithm
-vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin){
+vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin, bool debug_mode){
 	int L=1;
 	bool found = false;
 	vector<string> solution = {};
@@ -24,6 +24,9 @@ vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin){
 		solution.push_back("SOLVED_STATE");
 		 return solution;
 	}
+
+	if (debug_mode)
+		cout<<"Debuging Mode\n";
 
 	struct parent_node{
 		array<int, 24> pos;
@@ -63,8 +66,8 @@ vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin){
 				}
 			}
 		}
-		// For Debuging
-		cout<<"Level="<<L<<"	Frontier Nodes="<<frontier.size()<<endl;
+		if(debug_mode)
+			cout<<"Level="<<L<<"	Frontier Nodes="<<frontier.size()<<endl;
 		frontier = next;
 		L++;
 	}
@@ -114,14 +117,15 @@ int main(){
 
 	array<int, 24> fin = rubiks.get_final_position();
 
-	vector<string> solution = shortest_path(ini, fin);
+	bool debug_mode = false;
+	vector<string> solution = shortest_path(ini, fin, debug_mode);
 
 	if(solution.size() == 0 )
-		cout<<"Sorry you have entered wrong combination...";
+		cout<<"\nSorry you have entered wrong combination...";
 	else if(solution[0] == "SOLVED_STATE"){
-		cout<<"Solved State...";
+		cout<<"\nSolved State...";
 	}else{
-		cout<<"Solution: \n";
+		cout<<"\nSolution: \n";
 		for (int i = 0; i < solution.size(); ++i){
 			cout<<rubiks.get_move_name(rubiks.get_move(solution[i]))<<endl;
 		}
