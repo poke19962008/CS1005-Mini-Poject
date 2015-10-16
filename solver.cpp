@@ -10,37 +10,39 @@ using namespace std;
 // TODO: change return type to vector<string>
 void shortest_path(array<int, 24> ini, array<int, 24> fin){
 	rubik obj;
+	int L=1;
+	bool found = false;
+
 	map<array<int, 24>, int> level;
 	level[ini] = 0;
 
 	map<array<int, 24>, array<int, 24>> parent;
 	parent[ini] = {};
 
-	int i=1;
 	vector< array<int, 24> > frontier = {ini};
 	
-	while(frontier.size()){
+	while(frontier.size() && !found){
 		vector< array<int, 24> > next = {};
 
-		for (int i = 0; i < frontier.size(); ++i){
+		for (int i = 0; i < frontier.size() && !found; ++i){
 			vector<string> moves = {"F", "Fi", "L", "Li", "U", "Ui"};
 
-			for (int j = 0; j < moves.size(); ++j){
+			for (int j = 0; j < moves.size() && !found; ++j){
 				array<int, 24> next_move = obj.perm_apply(moves[j], frontier[i]);
 
 				if(next_move == fin)
-					break;
+					found = true;
 
 				if(level.find(next_move) == level.end()){
-					level[next_move] = i;
+					level[next_move] = L;
 					parent[next_move] = frontier[i];
 					next.push_back(next_move);
 				}
 			}
 		}
+		cout<<"L="<<L<<"	frontier="<<frontier.size()<<endl;
 		frontier = next;
-		i++;
-		cout<<"\ni="<<i<<"	frontier="<<frontier.size()<<"\n\n\n";
+		L++;
 	}
 
 	// Return list of moves to solve from init to fin
@@ -54,7 +56,7 @@ int main(){
 	array<int, 24> fin = obj.get_final_position();
 	array<int, 24> ini = obj.perm_apply("F", obj.get_final_position());
 
-	// shortest_path(ini, fin);
+	shortest_path(ini, fin);
 
 	return 0;
 }
