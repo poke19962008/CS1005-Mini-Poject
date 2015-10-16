@@ -130,7 +130,5 @@ int main(){
 			cout<<rubiks.get_move_name(rubiks.get_move(solution[i]))<<endl;
 		}
 	}
-	
-
 	return 0;
 }
