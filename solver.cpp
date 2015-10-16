@@ -18,6 +18,12 @@ rubik rubiks;
 vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin){
 	int L=1;
 	bool found = false;
+	vector<string> solution = {};
+
+	if(ini == fin){
+		solution.push_back("SOLVED_STATE");
+		 return solution;
+	}
 
 	struct parent_node{
 		array<int, 24> pos;
@@ -63,7 +69,6 @@ vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin){
 		L++;
 	}
 
-	vector<string> solution = {};
 	if(found){
 		parent_node tmp = parent[fin];
 
@@ -73,8 +78,6 @@ vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin){
 			tmp = parent[tmp.pos];
 		}
 
-	}else{
-		cout<<"Sorry you have entered wrong combination...";
 	}	
 
 	return solution;
@@ -99,22 +102,31 @@ int main(){
 		// Upper Clockwise
 		// Left Anticlockwise
 		// Front Anticlockwise
-	array<int, 24> ini = {6, 7, 8, 20, 18, 19, 3, 4, 5, 16, 17, 15, 0, 1, 2, 14, 12, 13, 10, 11, 9, 21, 22, 23};
+	// array<int, 24> ini = {6, 7, 8, 20, 18, 19, 3, 4, 5, 16, 17, 15, 0, 1, 2, 14, 12, 13, 10, 11, 9, 21, 22, 23};
 
 	// Test Case #2 [TESTED]
 	// God's Number: 2
 	// Solution: 
 		// Left Anticlockwise
 		// Front Anticlockwise
-	// array<int, 24> ini = rubiks.perm_apply("F", rubiks.get_final_position());
-	// ini = rubiks.perm_apply("L", ini);
+	array<int, 24> ini = rubiks.perm_apply("F", rubiks.get_final_position());
+	ini = rubiks.perm_apply("L", ini);
 
 	array<int, 24> fin = rubiks.get_final_position();
 
 	vector<string> solution = shortest_path(ini, fin);
-	for (int i = 0; i < solution.size(); ++i){
-		cout<<rubiks.get_move_name(rubiks.get_move(solution[i]))<<endl;
+
+	if(solution.size() == 0 )
+		cout<<"Sorry you have entered wrong combination...";
+	else if(solution[0] == "SOLVED_STATE"){
+		cout<<"Solved State...";
+	}else{
+		cout<<"Solution: \n";
+		for (int i = 0; i < solution.size(); ++i){
+			cout<<rubiks.get_move_name(rubiks.get_move(solution[i]))<<endl;
+		}
 	}
+	
 
 	return 0;
 }
