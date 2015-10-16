@@ -16,7 +16,6 @@ rubik rubiks;
 // TODO: change return type to vector<string>
 // 1 Way BFS Algorithm
 vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin){
-	rubik rubiks;
 	int L=1;
 	bool found = false;
 
@@ -59,7 +58,7 @@ vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin){
 			}
 		}
 		// For Debuging
-		// cout<<"L="<<L<<"	frontier="<<frontier.size()<<endl;
+		cout<<"Level="<<L<<"	Frontier Nodes="<<frontier.size()<<endl;
 		frontier = next;
 		L++;
 	}
@@ -82,13 +81,40 @@ vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin){
 }
 
 int main(){
-	// array<int, 24> ini = {6, 7, 8, 20, 18, 19, 3, 4, 5, 16, 17, 15, 0, 1, 2, 14, 12, 13, 10, 11, 9, 21, 22, 23};
-	array<int, 24> fin = rubiks.get_final_position();
-	array<int, 24> ini = rubiks.perm_apply("F", rubiks.get_final_position());
-	ini = rubiks.perm_apply("L", ini);
 
-	
+	// Test Case #1 [TESTED]
+	// God's Number: 14
+	// Solution : 
+		// Front Clockwise
+		// Front Clockwise
+		// Upper Anticlockwise
+		// Left Clockwise
+		// Upper Anticlockwise
+		// Front Clockwise
+		// Left Anticlockwise
+		// Upper Clockwise
+		// Left Anticlockwise
+		// Front Anticlockwise
+		// Left Anticlockwise
+		// Upper Clockwise
+		// Left Anticlockwise
+		// Front Anticlockwise
+	array<int, 24> ini = {6, 7, 8, 20, 18, 19, 3, 4, 5, 16, 17, 15, 0, 1, 2, 14, 12, 13, 10, 11, 9, 21, 22, 23};
+
+	// Test Case #2 [TESTED]
+	// God's Number: 2
+	// Solution: 
+		// Left Anticlockwise
+		// Front Anticlockwise
+	// array<int, 24> ini = rubiks.perm_apply("F", rubiks.get_final_position());
+	// ini = rubiks.perm_apply("L", ini);
+
+	array<int, 24> fin = rubiks.get_final_position();
+
 	vector<string> solution = shortest_path(ini, fin);
+	for (int i = 0; i < solution.size(); ++i){
+		cout<<rubiks.get_move_name(rubiks.get_move(solution[i]))<<endl;
+	}
 
 	return 0;
 }

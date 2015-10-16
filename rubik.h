@@ -97,12 +97,12 @@ public:
 		quarter_twist["Ui"] = Ui;	
 
 		// Inverse mapping of quarter move
-		quarter_twist_name[F] = "F";
-		quarter_twist_name[Fi] = "Fi";
-		quarter_twist_name[L] = "L";
-		quarter_twist_name[Li] = "Li";
-		quarter_twist_name[U] = "U";
-		quarter_twist_name[Ui] = "Ui";
+		quarter_twist_name[F] = "Front Clockwise";
+		quarter_twist_name[Fi] = "Front Anticlockwise";
+		quarter_twist_name[L] = "Left Clockwise";
+		quarter_twist_name[Li] = "Left Anticlockwise";
+		quarter_twist_name[U] = "Upper Clockwise";
+		quarter_twist_name[Ui] = "Upper Anticlockwise";
 	}
 
 	// Apply permutaion on the current position
