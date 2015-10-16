@@ -13,11 +13,17 @@ void shortest_path(array<int, 24> ini, array<int, 24> fin){
 	int L=1;
 	bool found = false;
 
+	struct parent_node{
+		array<int, 24> pos;
+		string move;
+	};
+
 	map<array<int, 24>, int> level;
 	level[ini] = 0;
 
-	map<array<int, 24>, map<string, array<int, 24>> > parent;
-	parent[ini] = {};
+	map<array<int, 24>, parent_node > parent;
+	parent[ini].pos = {};
+	parent[ini].move = "";
 
 	vector< array<int, 24> > frontier = {ini};
 	
@@ -32,13 +38,17 @@ void shortest_path(array<int, 24> ini, array<int, 24> fin){
 
 				if(next_move == fin){
 					found = true;
-					parent[next_move][moves[j]] = frontier[i];
+					// parent[next_move][moves[j]] = frontier[i];
+					parent[next_move].pos = frontier[i];
+					parent[next_move].move = moves[j];
 					break;
 				}
 
 				if(level.find(next_move) == level.end()){
 					level[next_move] = L;
-					parent[next_move][moves[j]] = frontier[i];
+					// parent[next_move][moves[j]] = frontier[i];
+					parent[next_move].pos = frontier[i];
+					parent[next_move].move = moves[j];
 					next.push_back(next_move);
 				}
 			}
@@ -52,8 +62,10 @@ void shortest_path(array<int, 24> ini, array<int, 24> fin){
 		// vector<string> solution;
 		// array<int, 24> tmp = {fin};
 
-		// for (int i = 0; i < count; ++i){
-		// 	tmp = parent[tmp];
+		// while (true){
+		// 	if(tmp[] == {}) break;
+
+		// 	tmp = parent[tmp][];
 
 		// }
 	}else{
