@@ -12,8 +12,6 @@ using namespace std;
 
 rubik rubiks;
 
-// TODO: 2 Way BFS Algorithm 
-// TODO: change return type to vector<string>
 // 1 Way BFS Algorithm
 vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin, bool debug_mode){
 	int L=1;
@@ -82,6 +80,43 @@ vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin, bool debug_
 		}
 
 	}	
+
+	return solution;
+}
+
+vector<string> shortest_path_2way(array<int, 24> ini, array<int, 24> fin, bool debug_mode){
+	vector<string> solution = {};
+
+	if(ini == fin){
+		solution.push_back("SOLVED_STATE");
+		 return solution;
+	}
+
+	if (debug_mode)
+		cout<<"Debuging Mode\n";
+
+	struct parent_node{
+		array<int, 24> pos;
+		string move;
+	};
+
+	map<array<int, 24>, int> forward_level;
+	forward_level[ini] = 0;
+	map<array<int, 24>, int> backward_forward;
+	backward_forward[ini] = 0;
+
+
+	map<array<int, 24>, parent_node > forward_parent;
+	forward_parent[ini].pos = {};
+	forward_parent[ini].move = "NULL";
+	map<array<int, 24>, parent_node > backward_parent;
+	backward_parent[ini].pos = {};
+	backward_parent[ini].move = "NULL";
+
+
+	vector< array<int, 24> > forward_frontier = {ini};
+	vector< array<int, 24> > backward_frontier = {fin};
+
 
 	return solution;
 }
