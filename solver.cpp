@@ -147,6 +147,12 @@ int main(){
 	// Solution: 
 		// Left Anticlockwise
 		// Front Anticlockwise
+
+	// Test Case #3 [ ]
+	// God's Number: 
+	// Solution: 
+	// array<int, 24> ini = {7, 8, 6, 20, 18, 19, 3, 4, 5, 16, 17, 15, 0, 1, 2, 14, 12, 13, 10, 11, 9, 21, 22, 23};
+
 	array<int, 24> ini = rubiks.perm_apply("F", rubiks.get_final_position());
 	ini = rubiks.perm_apply("L", ini);
 
