@@ -86,6 +86,9 @@ vector<string> shortest_path(array<int, 24> ini, array<int, 24> fin, bool debug_
 
 vector<string> shortest_path_2way(array<int, 24> ini, array<int, 24> fin, bool debug_mode){
 	vector<string> solution = {};
+	int L_forward = 1;
+	int L_backward  = 1;
+	bool found  = false;
 
 	if(ini == fin){
 		solution.push_back("SOLVED_STATE");
@@ -102,8 +105,8 @@ vector<string> shortest_path_2way(array<int, 24> ini, array<int, 24> fin, bool d
 
 	map<array<int, 24>, int> forward_level;
 	forward_level[ini] = 0;
-	map<array<int, 24>, int> backward_forward;
-	backward_forward[ini] = 0;
+	map<array<int, 24>, int> backward_level;
+	backward_level[fin] = 0;
 
 
 	map<array<int, 24>, parent_node > forward_parent;
@@ -117,6 +120,71 @@ vector<string> shortest_path_2way(array<int, 24> ini, array<int, 24> fin, bool d
 	vector< array<int, 24> > forward_frontier = {ini};
 	vector< array<int, 24> > backward_frontier = {fin};
 
+	while(!found){
+		vector <array<int, 24> > forward_next = {};
+		vector <array<int, 24> > backward_next = {};
+
+		// Calculate forward frontiers
+		for(int i=0; i<forward_frontier.size(); i++){
+			vector<string> moves = {"F", "Fi", "L", "Li", "U", "Ui"};
+
+			for (int j = 0; j < moves.size(); ++j){
+				array <int, 24> next_move = rubiks.perm_apply(moves[j], forward_frontier[i]);
+
+				if(backward_level.find(next_move) != backward_level.end()){
+					found = true;
+					break;
+				}
+
+				if(forward_level.find(next_move) == forward_level.end()){
+					forward_level[next_move] = L_forward;
+					forward_parent[next_move].pos = forward_frontier[i];
+					forward_parent[next_move].move = moves[j];
+					forward_next.push_back(next_move);
+				} 
+
+			}
+		}
+		forward_frontier = forward_next;
+		L_forward++;
+
+		if(debug_mode){
+			cout<<"Forwawrd Level: "<<L_forward<<endl;
+			cout<<"Forward frontier size: "<<forward_frontier.size()<<endl;
+		}
+
+		// Calculate backward frontiers
+		for(int i=0; i<backward_frontier.size() && !found; i++){
+			vector<string> moves = {"F", "Fi", "L", "Li", "U", "Ui"};
+
+			for (int j = 0; j < moves.size(); ++j){
+				array <int, 24> next_move= rubiks.perm_apply(moves[j], backward_frontier[i]);
+
+				// if(forward_level.find(next_move) != forward_level.end()){
+				// 	found = true;
+					
+				// 	break;
+				// }
+				
+				if(backward_level.find(next_move) == backward_level.end()){
+					backward_level[next_move] = L_backward;
+					backward_parent[next_move].pos = backward_frontier[i];
+					backward_parent[next_move].move = moves[j];
+					backward_next.push_back(next_move);
+				}
+			}
+		}
+		backward_frontier = backward_next;
+		L_backward++;
+
+		if(debug_mode){
+			cout<<"Backward Level: "<<L_backward<<endl;
+			cout<<"Backward frontier size: "<<backward_frontier.size()<<endl;
+		}
+
+	}
+
+	cout<<backward_parent[rubiks.perm_apply("F", ini)].move;
 
 	return solution;
 }
@@ -159,17 +227,17 @@ int main(){
 	array<int, 24> fin = rubiks.get_final_position();
 
 	bool debug_mode = false;
-	vector<string> solution = shortest_path(ini, fin, debug_mode);
+	vector<string> solution = shortest_path_2way(ini, fin, debug_mode);
 
-	if(solution.size() == 0 )
-		cout<<"\nSorry you have entered wrong combination...";
-	else if(solution[0] == "SOLVED_STATE"){
-		cout<<"\nSolved State...";
-	}else{
-		cout<<"\nSolution: \n";
-		for (int i = 0; i < solution.size(); ++i){
-			cout<<rubiks.get_move_name(rubiks.get_move(solution[i]))<<endl;
-		}
-	}
+	// if(solution.size() == 0 )
+	// 	cout<<"\nSorry you have entered wrong combination...";
+	// else if(solution[0] == "SOLVED_STATE"){
+	// 	cout<<"\nSolved State...";
+	// }else{
+	// 	cout<<"\nSolution: \n";
+	// 	for (int i = 0; i < solution.size(); ++i){
+	// 		cout<<rubiks.get_move_name(rubiks.get_move(solution[i]))<<endl;
+	// 	}
+	// }
 	return 0;
 }
