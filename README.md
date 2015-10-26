@@ -11,7 +11,6 @@ $ ./a.out
 **NOTE**: 
 - Does not work with Apple's native LLVM compiler
 - Make sure you have sufficient RAM, as this requires ~2.5GB of RAM for upto 16 level computation.
-- Under Construction
 
 ## License
 
