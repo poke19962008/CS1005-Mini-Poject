@@ -1,7 +1,3 @@
-/***
-** AUTHOR: poke19962008
-*/
-
 #include <iostream>
 #include <map>
 #include <string>
